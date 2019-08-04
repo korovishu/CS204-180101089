@@ -27,6 +27,10 @@ bool small(string s1, string s2)
     }
 }
 int main() {
+    int t;
+    cin >> t;
+    for(int i=0; i<t; i++)
+    {    
     string s1, s2, s3;
     cin >> s1 >> s2;
     // s1 is bigger.
@@ -73,5 +77,6 @@ int main() {
         else break;
     }
     reverse(s3.begin(), s3.end());
-    cout << s3;
+    cout << s3 << endl;
+    }    
 }
