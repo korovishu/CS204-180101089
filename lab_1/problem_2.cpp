@@ -41,12 +41,12 @@ int main() {
     reverse(s2.begin(), s2.end());
     for(int i=0; i<n2; i++)
     {
-        if((s1[i]-'0')>(s2[i]-'0'))
+        if((s1[i]-'0')-c>(s2[i]-'0'))
         {
             int sub = (s1[i]-'0') - (s2[i]-'0') - c;
             s3.push_back(sub + '0');
             c=0;
-        }else if((s1[i]-'0')<(s2[i]-'0'))
+        }else if((s1[i]-'0')-c<(s2[i]-'0'))
         {
             int sub = (s1[i]-'0') - (s2[i]-'0') - c + 10;
             s3.push_back(sub + '0');
@@ -60,14 +60,7 @@ int main() {
     { 
         int sub = ((s1[i]-'0') - c); 
           
-        // if the sub value is -ve, then make it positive 
-        if (sub < 0) 
-        { 
-            sub = sub + 10; 
-            c = 1; 
-        } 
-        else
-            c = 0; 
+        c=0;
               
         s3.push_back(sub + '0'); 
     } 
