@@ -166,21 +166,28 @@ string mul(string s1, string s2)
 }
 int main()
 {
+    int t;
+    cin >> t;
+    for(int i=0; i<t; i++)
+    {    
     string s;
     cin >> s;
-    if(s =="0" || s =="1") cout << "NO";
-    else if(rmndr(s, "2") == "0" || rmndr(s, "3")=="0") cout << "NO";
+    if(s =="0" || s =="1") cout << "Not a Prime";
+    if(s == "2" || s == "3") cout << "Prime";    
+    else if(rmndr(s, "2") == "0" || rmndr(s, "3")=="0") cout << "Not a Prime";
     else{
         string i = "5";
         while(small(mul(i, i), s))
         {
             if(rmndr(s, i)=="0" || rmndr(s, add(i, "2"))=="0")
             {
-                cout << "NO";
+                cout << "Not a Prime";
                 break;
             }
             i = add(i, "6");
         }
-        if(!small(mul(i, i), s)) cout << "YES";
+        if(!small(mul(i, i), s)) cout << "Prime";
     }
+        cout<<endl;
+    }    
 }
