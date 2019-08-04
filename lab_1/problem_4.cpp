@@ -106,40 +106,34 @@ string add(string s1, string s2)
     return s3;
 }
 int main() {
-    int t;
+     int t;
     cin >> t;
     for(int i=0; i<t; i++)
     {    
-    string s1, s2, q, r;
-    q='0';
+    string s1, s2, q, r, y;
+    q="0";
     cin >> s1 >> s2;
     int n2 = s2.length();
-    while(small(s2, s1) || equal(s1, s2))
+    string s=s1;
+    while(small(s2, s) || equal(s, s2))
     {
-        string s = s2;
-        int n1 = s1.length();
-        for(int i=0; i<n1-n2; i++)
-        {
-            s = s + '0';
-        }
-        if(small(s1, s)) 
-        {
-            s.pop_back();
-            long long t = pow(10, n1-n2-1);
-            string qs = to_string(t);
-            q = add(q, qs);
-        }
-        else 
-        {
-            long long t = pow(10, n1-n2);
-            string qs = to_string(t);
-            q = add(q, qs);
-        }
-        s1 = diff(s1, s);
-        
+        string ts2 = s2;
+            int n1 = s.size();
+            y = "1";
+            for(int i=0; i<n1-n2; i++)
+            {
+                ts2.push_back('0');
+                y.push_back('0');
+            }
+            if(small(s, ts2))
+            {
+                ts2.pop_back();
+                y.pop_back();
+            }
+            q = add(q, y);
+            s = diff(s, ts2);
     }
-    
-    r = s1;
+    r = s;
     cout << q << "\n" << r << endl;
     }    
 }
