@@ -35,7 +35,7 @@ bool small(string s1, string s2)
     {
         for(int i=0; i<n1; i++)
         {
-            if((s1[i]-'0')>=(s2[i]-'0')) return false;
+            if((s1[i]-'0')>(s2[i]-'0')) return false;
             if((s1[i]-'0')<(s2[i]-'0')) return true;
         }
         if(equal(s1, s2)) return false;
@@ -69,15 +69,18 @@ string diff(string s1, string s2)
     }
      for (int i=n2; i<n1; i++) 
     { 
-        int sub = ((s1[i]-'0') - c);
+        int sub = ((s1[i]-'0') - c); 
         c=0;      
         s3.push_back(sub + '0'); 
     } 
-    for(int i=s3.length()-1; i>=1; i--)
+    if(s3.length()!=1)
     {
-        if(s3[i]=='0') s3.pop_back();
-        else break;
-    }
+        for(int i=s3.length()-1; i>=1; i--)
+        {
+            if(s3[i]=='0') s3.pop_back();
+            else break;
+        }
+    }    
     reverse(s3.begin(), s3.end());
     return s3;
 }
@@ -108,7 +111,7 @@ string add(string s1, string s2)
     return s3;
 }
 string rmndr(string s1, string s2)
-{string s1, s2, q, r, y;
+{string q, r, y;
     q="0";
     int n2 = s2.length();
     string s=s1;
@@ -160,17 +163,16 @@ int main()
     cin >> s;
     if(s =="0" || s =="1") cout << "Not a Prime";
     if(s == "2" || s == "3") cout << "Prime";    
-    else if(rmndr(s, "2") == "0" || rmndr(s, "3")=="0") cout << "Not a Prime";
     else{
-        string i = "5";
+        string i = "2";
         while(small(mul(i, i), s))
         {
-            if(rmndr(s, i)=="0" || rmndr(s, add(i, "2"))=="0")
+            if(rmndr(s, i)=="0")
             {
                 cout << "Not a Prime";
                 break;
             }
-            i = add(i, "6");
+            i = add(i, "1");
         }
         if(!small(mul(i, i), s)) cout << "Prime";
     }
