@@ -67,13 +67,11 @@ int main() {
               
         s3.push_back(sub + '0'); 
     } 
-    if(s3.length()!=1)
+     for(int i=s3.length()-1; i>=1; i--)
     {
-        for(int i=s3.length()-1; s3[i]=='0'; i--)
-        {
-            s3.pop_back();
-        }
-    }    
+        if(s3[i]=='0') s3.pop_back();
+        else break;
+    }
     reverse(s3.begin(), s3.end());
     cout << s3;
 }
