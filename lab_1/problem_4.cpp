@@ -106,6 +106,10 @@ string add(string s1, string s2)
     return s3;
 }
 int main() {
+    int t;
+    cin >> t;
+    for(int i=0; i<t; i++)
+    {    
     string s1, s2, q, r;
     q='0';
     cin >> s1 >> s2;
@@ -136,5 +140,6 @@ int main() {
     }
     
     r = s1;
-    cout << q << " " << r;
+    cout << q << "\n" << r << endl;
+    }    
 }
