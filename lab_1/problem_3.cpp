@@ -43,6 +43,10 @@ string add(string s1, string s2)
     return s3;
 }
 int main() {
+    int t;
+    cin >> t;
+    for(int i=0; i<t; i++)
+    {    
     string s1, s2, s3;
     cin >> s1 >> s2;
     s3 = '0';
@@ -57,6 +61,6 @@ int main() {
         }
         s3 = add(s3, s);
     }
-    cout << s3;
-   
+    cout << s3 << endl;
+    }
 }
