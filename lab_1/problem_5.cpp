@@ -52,12 +52,12 @@ string diff(string s1, string s2)
     reverse(s2.begin(), s2.end());
     for(int i=0; i<n2; i++)
     {
-        if((s1[i]-'0')>(s2[i]-'0'))
+        if((s1[i]-'0')-c>(s2[i]-'0'))
         {
             int sub = (s1[i]-'0') - (s2[i]-'0') - c;
             s3.push_back(sub + '0');
             c=0;
-        }else if((s1[i]-'0')<(s2[i]-'0'))
+        }else if((s1[i]-'0')-c<(s2[i]-'0'))
         {
             int sub = (s1[i]-'0') - (s2[i]-'0') - c + 10;
             s3.push_back(sub + '0');
@@ -69,17 +69,8 @@ string diff(string s1, string s2)
     }
      for (int i=n2; i<n1; i++) 
     { 
-        int sub = ((s1[i]-'0') - c); 
-          
-        // if the sub value is -ve, then make it positive 
-        if (sub < 0) 
-        { 
-            sub = sub + 10; 
-            c = 1; 
-        } 
-        else
-            c = 0; 
-              
+        int sub = ((s1[i]-'0') - c);
+        c=0;      
         s3.push_back(sub + '0'); 
     } 
     for(int i=s3.length()-1; i>=1; i--)
@@ -117,34 +108,29 @@ string add(string s1, string s2)
     return s3;
 }
 string rmndr(string s1, string s2)
-{
-    string q, r;
+{string s1, s2, q, r, y;
     q="0";
     int n2 = s2.length();
-    while(small(s2, s1) || equal(s1, s2))
+    string s=s1;
+    while(small(s2, s) || equal(s, s2))
     {
-        string s = s2;
-        int n1 = s1.length();
-        for(int i=0; i<n1-n2; i++)
-        {
-            s = s + "0";
-        }
-        if(small(s1, s)) 
-        {
-            s.pop_back();
-            long long t = pow(10, n1-n2-1);
-            string qs = to_string(t);
-            q = add(q, qs);
-        }
-        else 
-        {
-            long long t = pow(10, n1-n2);
-            string qs = to_string(t);
-            q = add(q, qs);
-        }
-        s1 = diff(s1, s);
+        string ts2 = s2;
+            int n1 = s.size();
+            y = "1";
+            for(int i=0; i<n1-n2; i++)
+            {
+                ts2.push_back('0');
+                y.push_back('0');
+            }
+            if(small(s, ts2))
+            {
+                ts2.pop_back();
+                y.pop_back();
+            }
+            q = add(q, y);
+            s = diff(s, ts2);
     }
-    r = s1;
+    r = s;
     return r;
 }
 string mul(string s1, string s2)
