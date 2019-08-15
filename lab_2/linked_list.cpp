@@ -39,7 +39,7 @@ void AddFirst(int a, int b, struct node** start)
 }
 void DelFirst(struct node** start)
 {
-    if(*start == NULL) cout << "-1";
+    if(*start == NULL) cout << "-1\n";
     else
     {
         node* temp = *start;
@@ -65,7 +65,7 @@ void Del(int a, int b, struct node** start)
 			temp = temp->next;
 		}
 	}
-    if(i == 0) cout << "-1";
+    if(i == 0) cout << "-1\n";
 }
 void Search(float d, struct node** start)
 {
@@ -77,11 +77,12 @@ void Search(float d, struct node** start)
         int b = temp->y;
         if(sqrt(a*a + b*b) <= d) 
         {
-            cout << "(" << a << "," << b << ")" << " "; i++;
+            i++;
         }
         temp = temp->next;
     }
-    if(i==0) cout << "0";
+    if(i==0) cout << "-1";
+	else cout<<i;
 }
 void Search(int a, int b, struct node** start)
 {
