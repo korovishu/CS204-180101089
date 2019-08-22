@@ -160,12 +160,6 @@ int eval(et* a){
 
 int main()
 {
-    int q;cin>>q;
-    while(q--)
-    {
-        int t; cin>>t;
-        while(t--)
-        {
     string p;
 	cin>>p;
 	vector<string> P;
@@ -192,7 +186,5 @@ int main()
     //cout<<postexp[i]<<" ";
     et* a = constructTree(postexp);
     int val = eval(a);
-    cout<<val;
-        }
-    }
+    cout<<val;	
 }
