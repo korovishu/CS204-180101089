@@ -303,7 +303,10 @@ void exptype(string p){
 
 
 int main(){
-	int q=2;
+	int t;cin>>t;
+	while(t--)
+	{	
+	int q;cin>>q;
 	for(int i=0;i<37;i++){
 			table.push_back(NULL);
 		}
@@ -312,4 +315,5 @@ int main(){
 		cin>>p;
 		exptype(p);
 	}
+	}	
 }
