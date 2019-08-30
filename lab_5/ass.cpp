@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+int validity=1;
+
 struct node
 {
 	string data;
@@ -78,7 +80,7 @@ vector<string> infixToPostfix(vector<string> s)
     for(int i = 0; i < l; i++) 
     { 
         // If the scanned character is an operand, add it to output string. 
-        if(s[i]!="(" && s[i]!=")" && s[i]!="+" && s[i]!="*" && s[i]!="-" && s[i]!="/" && s[i]!= "@") {
+        if(s[i]!="(" && s[i]!=")" && s[i]!="+" && s[i]!="*" && s[i]!="-" && s[i]!="/" && s[i]!= "@"&&s[i]!="^") {
         	if(s[i]!="")
         	ns.push_back(s[i]); 
     	}
@@ -106,7 +108,7 @@ vector<string> infixToPostfix(vector<string> s)
           
         //If an operator is scanned 
         else{ 
-            while(st.top() != "N" && prec(s[i]) <= prec(st.top())) 
+            while(st.top() != "N" && ((prec(s[i]) <= prec(st.top()))&&(prec(s[i])!=3&&prec(st.top())!=3))) 
             { 
                 string c = st.top(); 
                 st.pop(); 
@@ -123,7 +125,7 @@ vector<string> infixToPostfix(vector<string> s)
                 st.pop();
                 ns.push_back(c); 
     } 
-      
+      	
     return ns;
   
 }  
@@ -147,7 +149,7 @@ bool isOperator(char c)
 } 
 
 bool isunary(string p,int i){
-	if(i==0||p[i+1]==28||isOperator(p[i-1]))
+	if(i==0||p[i+1]==41||isOperator(p[i-1])||p[i-1] == 61||p[i-1]==40)
 		return true;	
 	return false;
 }
@@ -165,7 +167,7 @@ et* newNode(string v)
 et* constructTree(vector<string> postfix) 
 { 
     stack<et *> st; 
-    et *t, *t1, *t2; 
+    et *t, *t1, *t2;
   
     // Traverse through every character of 
     // input expression 
@@ -241,7 +243,7 @@ vector <string> Thevals(string p){
     string temp="";
 	for(int i=0; i<p.length();i++)
 	{
-		if((p[i]>=48 && p[i]<=57))
+		if((p[i]>=48 && p[i]<=57)||(p[i]>=65&&p[i]<=90)||(p[i]>=97&&p[i]<=112))
 		{
           temp+=p[i];
 		}
@@ -252,7 +254,7 @@ vector <string> Thevals(string p){
             if(p[i] == 45 && isunary(p,i))
             	p[i] = '@';
 
-            temp+=p[i];  
+            temp+=p[i]; 
             P.push_back(temp);
             temp="";
 		}   
@@ -264,12 +266,29 @@ vector <string> Thevals(string p){
 int numerical_exp(string p){
 	vector<string> P;
 	P = Thevals(p);
+	for(int i=0;i<P.size();i++){
+		if((P[i][0]>=65&&P[i][0]<=90)||(P[i][0]>=97&&P[i][0]<=1122)){
+			node* temp = search(P[i]);
+			if(temp == NULL)
+			{
+				validity = 0;
+				break;
+			}
+
+	}
+}
+	if(validity == 0)
+		return 0;
+	else{
 	vector<string> postexp=infixToPostfix(P);
     //for(int i=0; i<postexp.size();i++)
     //cout<<postexp[i]<<" ";
+	//cout<<"\n"<<postexp.size()<<"\n";
     et* a = constructTree(postexp);
     int value = eval(a);
     return value;
+}
+		
 }
 
 void variable_exp(string p){
@@ -281,8 +300,15 @@ void variable_exp(string p){
 		else
 			var+=p[i];
 	}
-	int num = numerical_exp(p.substr(i,p.length()));
-	insert(var,num);
+	int num = numerical_exp(p.substr(i+1,p.length()));
+	if(validity == 1){
+		
+		insert(var,num);
+	}
+    else
+    	cout<<"Invalid Expression"<<"\n";
+	
+	
 }
 void exptype(string p){
 	int flag = 0;
@@ -297,23 +323,32 @@ void exptype(string p){
     }
     else{
     	int number = numerical_exp(p);
-    	cout<<number<<"\n";
+    	if(validity == 1)
+    		cout<<number<<"\n";
+    	else
+    		cout<<"Invalid Expression"<<"\n";
     }
 }
 
 
 int main(){
-	int t;cin>>t;
-	while(t--)
-	{	
-	int q;cin>>q;
+	int q=2;
 	for(int i=0;i<37;i++){
 			table.push_back(NULL);
 		}
-	while(q--){
-		string p;
-		cin>>p;
-		exptype(p);
+		int T;
+		cin>>T;
+	while(T--){
+		int n;
+		cin>>n;
+		for(int i=0;i<37;i++){
+			table[i] = NULL;
+		}
+		while(n--){
+			validity =1;
+			string p;
+			cin>>p;
+			exptype(p);
+		}
 	}
-	}	
 }
